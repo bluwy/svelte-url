@@ -1,8 +1,8 @@
 # Svelte URL
 
-Barebones routing with reactive URL.
+Barebones routing with reactive URLs
 
-https://svelte.dev/repl/5abaac000b164aa1aacc6051d5c4f584?version=3.29.0
+https://svelte.dev/repl/5abaac000b164aa1aacc6051d5c4f584?version=3
 
 ```svelte
 {#if $url.pathname === '/'}
@@ -14,7 +14,11 @@ https://svelte.dev/repl/5abaac000b164aa1aacc6051d5c4f584?version=3.29.0
 {/if}
 ```
 
-# Try it out
+## How to use
+
+This is not an NPM package. The heart of this repo is at [src/url.js](./src/url.js). It's only a single file so feel free to copy-paste it into your project.
+
+## Try it out
 
 ```bash
 # Copy project with degit
@@ -26,7 +30,7 @@ $ cd svelte-app
 # Install dependencies
 $ pnpm install
 
-# Nuild project
+# Build project
 $ pnpm build
 
 # Serve SPA at http://localhost:5000
@@ -36,6 +40,6 @@ $ pnpm serve:spa
 $ pnpm serve:ssr
 ```
 
-# License
+## License
 
 MIT
