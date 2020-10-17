@@ -12,13 +12,13 @@ if (isBrowser) {
 
   const updateHref = () => href.set(window.location.href)
 
-  history.pushState = function (...args) {
-    originalPushState.apply(this, args)
+  history.pushState = function () {
+    originalPushState.apply(this, arguments)
     updateHref()
   }
 
-  history.replaceState = function (...args) {
-    originalReplaceState.apply(this, args)
+  history.replaceState = function () {
+    originalReplaceState.apply(this, arguments)
     updateHref()
   }
 
