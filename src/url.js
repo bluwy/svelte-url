@@ -1,12 +1,14 @@
 import { derived, writable } from 'svelte/store'
 
-const isBrowser = typeof window !== 'undefined'
+export function createUrlStore(ssrUrl) {
+  // Ideally a bundler constant so that it's tree-shakable
+  if (typeof window === 'undefined') {
+    const { subscribe } = writable(ssrUrl)
+    return { subscribe }
+  }
 
-const href = writable(isBrowser ? window.location.href : 'https://example.com')
+  const href = writable(window.location.href)
 
-const URL = isBrowser ? window.URL : require('url').URL
-
-if (isBrowser) {
   const originalPushState = history.pushState
   const originalReplaceState = history.replaceState
 
@@ -24,9 +26,11 @@ if (isBrowser) {
 
   window.addEventListener('popstate', updateHref)
   window.addEventListener('hashchange', updateHref)
+
+  return {
+    subscribe: derived(href, ($href) => new URL($href)).subscribe
+  }
 }
 
-export default {
-  subscribe: derived(href, ($href) => new URL($href)).subscribe,
-  ssrSet: (urlHref) => href.set(urlHref),
-}
+// If you're using in a pure SPA, you can return a store directly and share it everywhere
+// export default createUrlStore()

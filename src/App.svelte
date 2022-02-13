@@ -1,12 +1,14 @@
-<script context="module">
-  import url from './url'
-
-  export function setSsrHref(v) {
-    url.ssrSet(v)
-  }
-</script>
-
 <script>
+  import { getContext, setContext } from 'svelte'
+  import { createUrlStore } from './url'
+
+  export let ssrUrl = ''
+
+  setContext('APP', { url: createUrlStore(ssrUrl) })
+
+  // Usage across descendants for SSR support
+  const { url } = getContext('APP')
+
   function handleLinkClick(e) {
     e.preventDefault()
     const href = e.target.href

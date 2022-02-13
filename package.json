@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "serve:spa": "sirv public -s",
+    "serve:spa": "sirv public -s --port 3000",
     "serve:ssr": "node server.js"
   },
   "devDependencies": {

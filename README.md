@@ -33,10 +33,10 @@ $ pnpm install
 # Build project
 $ pnpm build
 
-# Serve SPA at http://localhost:5000
+# Serve SPA at http://localhost:5001
 $ pnpm serve:spa
 
-# Or serve SSR at http://localhost:5001
+# Or serve SSR at http://localhost:5002
 $ pnpm serve:ssr
 ```
 

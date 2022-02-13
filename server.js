@@ -2,16 +2,18 @@ const fs = require('fs')
 const { URL } = require('url')
 const sirv = require('sirv')
 const polka = require('polka')
-const { default: App, setSsrHref } = require('./public/build/App')
+const App = require('./public/build/App').default
 
 const baseHtml = fs.readFileSync('public/index.html', { encoding: 'utf-8' })
 
 polka()
   .use(sirv('public', { extensions: [] }))
   .use((req, res) => {
-    setSsrHref(new URL(req.url, `http://${req.headers.host}`).href)
-
-    const { html } = App.render()
+    const { html } = App.render({
+      props: {
+        ssrUrl: new URL(req.url, `http://${req.headers.host}`).href
+      }
+    })
 
     const result = baseHtml.replace(
       '<div id="app"></div>',
@@ -21,7 +23,7 @@ polka()
     res.write(result)
     res.end()
   })
-  .listen(5001, (err) => {
+  .listen(3001, (err) => {
     if (err) throw err
-    console.log('Ready at http://localhost:5001')
+    console.log('Ready at http://localhost:3001')
   })
